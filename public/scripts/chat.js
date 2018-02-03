@@ -1,12 +1,11 @@
-var socket = io();
+// TODO:
+// [ ] Escape HTML in messages
 
-socket.on('message', function(msg) {
-	$('#messages').append('<li>' + msg + '</li>')
-})
+var socket = io()
 
-$('form').submit(function() {
-	socket.emit('message', $('#m').val());
-	$('#m').val('');
+// Message submission handler
+// TODO...
 
-	return false;
-});
+// Events
+
+// TODO...
