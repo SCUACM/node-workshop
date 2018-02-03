@@ -3,8 +3,19 @@
 
 var socket = io()
 
+// listen for messages and display them in list
+socket.on('message', function(msg) {
+	$('#messages').append('<li>' + msg + '</li>')
+})
+
 // Message submission handler
-// TODO...
+$('form').submit(function() {
+	socket.emit('message', $('#m').val()) // send message to server
+
+	$('#m').val('')
+
+	return false
+})
 
 // Events
 
