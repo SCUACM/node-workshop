@@ -7,10 +7,10 @@ var entityMap = {
 	'/': '&#x2F;',
 	'`': '&#x60;',
 	'=': '&#x3D;'
-};
+}
 
 function escapeHtml(string) {
 	return String(string).replace(/[&<>"'`=\/]/g, function (s) {
-		return entityMap[s];
-	});
+		return entityMap[s]
+	})
 }
