@@ -20,7 +20,7 @@ app.route('/hello')
 // TODO:
 // [X] Broadcast a message to connected users when someone connects or disconnects
 // [ ] Add a MOTD (Message of the Day)
-// [ ] Allow clients to choose a nickname
+// [X] Allow clients to choose a nickname
 // [ ] Add “{user} is typing” functionality
 // [ ] Show number of clients connected
 // [ ] Add private messaging
@@ -29,21 +29,43 @@ app.route('/hello')
 // Set up socket.io
 var io = require('socket.io')(http)
 
+var clients = {}
+
 // This function is run every time a new client connects
 // It binds listeners to events coming from that client
 io.on('connection', function(client) {
-	console.log('%s connected :)', client.id)
-	io.emit('message', 'New user: ' + client.id)
+	var chatClient = { socket: client, nickname: client.id }
+
+	// adds client to list of clients
+	clients[client.id] = chatClient
+
+	console.log('%s connected :)', chatClient.nickname)
+	io.emit('message', 'New user: ' + chatClient.nickname)
+
+	// listen for nickname change
+	client.on('nickname', function(newNick) {
+		if (newNick.trim() === '')
+			return
+
+		console.log('%s changed nickname to %s', chatClient.nickname, newNick)
+		io.emit('nickname', chatClient.nickname, newNick)
+		chatClient.nickname = newNick
+	})
 
 	// main message event
 	client.on('message', function(msg) {
-		console.log('%s sent a message: %s', client.id, msg)
-		io.emit('message', msg) // forward message to all connected users
+		if (msg.trim() === '') // check for blank messages
+			return
+
+		console.log('%s sent a message: %s', chatClient.nickname, msg)
+		io.emit('message', chatClient.nickname, msg) // forward message to all connected users
 	})
 
 	client.on('disconnect', function() {
-		console.log('%s disconnected :(', client.id)
-		io.emit('message', 'User left: ' + client.id)
+		console.log('%s disconnected :(', chatClient.nickname)
+		io.emit('message', 'User left: ' + chatClient.nickname)
+
+		delete clients[client.id]
 	})
 })
 
