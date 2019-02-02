@@ -1,13 +1,14 @@
 // FRONTEND (CLIENT) CODE
 
 // TODO:
-// [ ] Escape HTML in messages
+// [ ] Disallow sending of blank messages
+// [X] Escape HTML in messages
 
 var server = io()
 
 // listen for messages and display them in list
 server.on('message', function(msg) {
-	$('#messages').append('<li>' + msg + '</li>')
+	$('#messages').append('<li>' + escapeHtml(msg) + '</li>')
 })
 
 // Message submission handler

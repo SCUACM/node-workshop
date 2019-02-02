@@ -18,7 +18,7 @@ app.route('/hello')
 ////////////////////////////////// Socket.IO ///////////////////////////////////
 
 // TODO:
-// [ ] Broadcast a message to connected users when someone connects or disconnects
+// [X] Broadcast a message to connected users when someone connects or disconnects
 // [ ] Add a MOTD (Message of the Day)
 // [ ] Allow clients to choose a nickname
 // [ ] Add “{user} is typing” functionality
@@ -33,6 +33,7 @@ var io = require('socket.io')(http)
 // It binds listeners to events coming from that client
 io.on('connection', function(client) {
 	console.log('%s connected :)', client.id)
+	io.emit('message', 'New user: ' + client.id)
 
 	// main message event
 	client.on('message', function(msg) {
@@ -42,6 +43,7 @@ io.on('connection', function(client) {
 
 	client.on('disconnect', function() {
 		console.log('%s disconnected :(', client.id)
+		io.emit('message', 'User left: ' + client.id)
 	})
 })
 
