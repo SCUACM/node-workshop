@@ -1,6 +1,7 @@
 // FRONTEND (CLIENT) CODE
 
 // TODO:
+// [ ] Disallow sending of blank messages
 // [ ] Escape HTML in messages
 
 var server = io()
