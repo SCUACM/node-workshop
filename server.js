@@ -25,6 +25,7 @@ app.route('/hello')
 // [ ] Show number of clients connected
 // [ ] Add private messaging
 // [ ] Add rate-limiting
+// [ ] Admin dashboard and tools (view logs, statistics, ip ban, etc.)
 
 // Set up socket.io
 var io = require('socket.io')(http)
