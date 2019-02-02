@@ -1,8 +1,8 @@
 {
   "name": "Start on Heroku: Node.js with SCU ACM",
   "description": "A barebones Node.js app using Express 4",
-  "repository": "https://github.com/SCUACM/node-tutorial",
+  "repository": "https://github.com/SCUACM/node-workshop",
   "logo": "https://cdn.jsdelivr.net/gh/heroku/node-js-getting-started/public/node.svg",
-  "keywords": ["scu", "acm", "node", "express", "heroku", "tutorial"],
+  "keywords": ["scu", "acm", "node", "express", "heroku", "workshop"],
   "image": "heroku/nodejs"
 }
